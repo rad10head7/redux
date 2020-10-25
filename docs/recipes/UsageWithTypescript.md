@@ -230,6 +230,26 @@ const rootReducer = combineReducers({
 export type RootState = ReturnType<typeof rootReducer>
 ```
 
+### Type Checking Middlewares
+
+A middleware is a higher-order function that composes a dispatch function to return a new dispatch function.
+To create a type checked middleware function, we can leverage the `Middleware` interface provided by Redux together with our store type (as defined in the previous example):
+
+```ts
+// src/middleware/example.ts
+
+import { Middleware } from 'redux'
+
+import { RootState } from '../store'
+
+export const exampleMiddleware: Middleware<
+  {}, // legacy type parameter added to satisfy interface signature
+  RootState
+> = store => next => action => {
+  // code here
+}
+```
+
 ## Usage with React Redux
 
 While React Redux is a separate library from Redux itself, it is commonly used with React.
@@ -366,7 +386,7 @@ export type AppDispatch = typeof store.dispatch
 `createAction` requires that the type of the payload be explicitly defined, unless there is no payload required:
 
 ```ts
-const add = createAction<number>('add')
+const add = createAction<number>(1)
 ```
 
 ### Typing `createReducer`

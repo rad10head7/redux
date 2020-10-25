@@ -1,10 +1,19 @@
 ---
 id: async-actions
 title: Async Actions
+description: 'Advanced Tutorial > Async Actions: Working with async logic and data fetching'
 hide_title: true
 ---
 
 # Async Actions
+
+:::info
+
+While the concepts in the "Basic" and "Advanced" tutorials are still valid, these pages are some of the oldest parts of our docs. We'll be updating those tutorials soon to improve the explanations and show some patterns that are simpler and easier to use. Keep an eye out for those updates. We'll also be reorganizing our docs to make it easier to find information.
+
+**We recommend starting with the [Redux Essentials tutorial](../tutorials/essentials/part-1-overview-concepts)**, since it covers the key points you need to know about how to get started using Redux to write actual applications.
+
+:::
 
 In the [basics guide](../basics/README.md), we built a simple todo application. It was fully synchronous. Every time an action was dispatched, the state was updated immediately.
 
@@ -357,7 +366,7 @@ export function fetchPosts(subreddit) {
   // It passes the dispatch method as an argument to the function,
   // thus making it able to dispatch actions itself.
 
-  return function(dispatch) {
+  return function (dispatch) {
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
 
@@ -371,12 +380,10 @@ export function fetchPosts(subreddit) {
 
     return fetch(`https://www.reddit.com/r/${subreddit}.json`)
       .then(
-        response => response.json(),
-        // Do not use catch, because that will also catch
-        // any errors in the dispatch and resulting render,
-        // causing a loop of 'Unexpected batch number' errors.
-        // https://github.com/facebook/react/issues/6895
-        error => console.log('An error occurred.', error)
+        response => response.json()
+        // Do not use catch, because errors occured during rendering
+        // should be handled by React Error Boundaries
+        // https://reactjs.org/docs/error-boundaries.html
       )
       .then(json =>
         // We can dispatch many times!
@@ -387,24 +394,6 @@ export function fetchPosts(subreddit) {
   }
 }
 ```
-
-> ##### Note on `fetch`
->
-> We use [`fetch` API](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) in the examples. It is a new API for making network requests that replaces `XMLHttpRequest` for most common needs. Because most browsers don't yet support it natively, we suggest that you use [`cross-fetch`](https://github.com/lquixada/cross-fetch) library:
->
-> ```js
-> // Do this in every file where you use `fetch`
-> import fetch from 'cross-fetch'
-> ```
->
-> Internally, it uses [`whatwg-fetch` polyfill](https://github.com/github/fetch) on the client, and [`node-fetch`](https://github.com/bitinn/node-fetch) on the server, so you won't need to change API calls if you change your app to be [universal](https://medium.com/@mjackson/universal-javascript-4761051b7ae9).
->
-> Be aware that any `fetch` polyfill assumes a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) polyfill is already present. The easiest way to ensure you have a Promise polyfill is to enable Babel's ES6 polyfill in your entry point before any other code runs:
->
-> ```js
-> // Do this once before any other code in your app
-> import 'babel-polyfill'
-> ```
 
 How do we include the Redux Thunk middleware in the dispatch mechanism? We use the [`applyMiddleware()`](../api/applyMiddleware.md) store enhancer from Redux, as shown below:
 

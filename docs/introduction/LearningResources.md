@@ -1,6 +1,7 @@
 ---
 id: learning-resources
 title: Learning Resources
+description: 'Introduction > Learning Resources: Additional articles and resources for learning Redux'
 hide_title: true
 ---
 
@@ -350,6 +351,7 @@ _Patterns and practices for structuring larger Redux applications_
 - [繁體中文文件](https://github.com/chentsulin/redux) — Traditional Chinese
 - [Redux in Russian](https://github.com/rajdee/redux-in-russian) — Russian
 - [Redux en Español](http://es.redux.js.org/) - Spanish
+- [Redux in Korean](https://ko.redux.js.org/) - Korean
 
 ## Books
 

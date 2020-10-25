@@ -1,18 +1,39 @@
 ---
 id: installation
 title: Installation
+description: 'Introduction > Installation: Installation instructions for Redux and related packages'
 hide_title: true
 ---
 
 # Installation
 
+## Redux Toolkit
+
+Redux Toolkit includes the Redux core, as well as other key packages we feel are essential for building Redux applications (such as Redux Thunk and Reselect).
+
+It's available as a package on NPM for use with a module bundler or in a Node application:
+
+```bash
+# NPM
+npm install @reduxjs/toolkit
+
+# Yarn
+yarn add @reduxjs/toolkit
+```
+
+It's also available as a UMD build, which can be loaded from [the `dist` folder on unpkg](https://unpkg.com/@reduxjs/toolkit/dist/). The UMD builds make Redux Toolkit available as a `window.RTK` global variable.
+
+## Redux Core
+
 To install the stable version:
 
 ```bash
+# NPM
 npm install redux
-```
 
-This assumes you are using [npm](https://www.npmjs.com/) as your package manager.
+# Yarn
+yarn add redux
+```
 
 If you're not, you can [access these files on unpkg](https://unpkg.com/redux/), download them, or point your package manager to them.
 
@@ -32,3 +53,11 @@ npm install --save-dev redux-devtools
 ```
 
 Note that unlike Redux itself, many packages in the Redux ecosystem don't provide UMD builds, so we recommend using CommonJS module bundlers like [Webpack](https://webpack.js.org/) and [Browserify](http://browserify.org/) for the most comfortable development experience.
+
+## Create a React Redux App
+
+The recommended way to start new apps with React and Redux is by using the [official Redux+JS template](https://github.com/reduxjs/cra-template-redux) for [Create React App](https://github.com/facebook/create-react-app), which takes advantage of [Redux Toolkit](https://redux-toolkit.js.org/) and React Redux's integration with React components.
+
+```sh
+npx create-react-app my-app --template redux
+```
